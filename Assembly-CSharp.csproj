@@ -47,6 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\CatController.cs" />
+     <Compile Include="Assets\Scripts\DestroyOnContact.cs" />
+     <Compile Include="Assets\Scripts\Explode.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\Restart.cs" />
+     <Compile Include="Assets\Scripts\Score.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Users/ncblx/unity3d/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     private int food;
     private float timeLeft;
     private float maxWidth;
+    public int absSeconds, minutes, seconds;
 
     private void Start()
     {
@@ -49,16 +50,9 @@ public class GameController : MonoBehaviour {
             Quaternion spawnRotation = Quaternion.AngleAxis(180, spawnPosition);
             
             food = Random.Range(0, 171);
-            if(food >=0 && food <=75)
-            {
-                Instantiate(fish, spawnPosition, spawnRotation);
-            } else if(food > 75 && food <= 130)
-            {
-                Instantiate(meat, spawnPosition, spawnRotation);
-            } else
-            {
-                Instantiate(sushi, spawnPosition, spawnRotation);
-            }
+            if(food >=0 && food <=75) Instantiate(fish, spawnPosition, spawnRotation);
+            else if(food > 75 && food <= 130) Instantiate(meat, spawnPosition, spawnRotation);
+            else Instantiate(sushi, spawnPosition, spawnRotation);
             yield return new WaitForSeconds(Random.Range(1.0f, 1.5f));
         }
         yield return new WaitForSeconds(1.0f);
@@ -74,6 +68,10 @@ public class GameController : MonoBehaviour {
         {
             timeLeft += Time.deltaTime;
         }
-        timer.text = "Timer:\n" + Mathf.RoundToInt(timeLeft);
+        absSeconds = Mathf.RoundToInt(timeLeft);
+        minutes = absSeconds / 60;
+        seconds = absSeconds % 60;
+        timer.text = "Time\n" + (minutes>9 ? "" : "0" ) + 
+            minutes + " : " + (seconds>9 ? "" : "0") + seconds;
     }
 }

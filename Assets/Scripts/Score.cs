@@ -18,22 +18,14 @@ public class Score : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string colName = collision.gameObject.name;
-        if(colName.Contains("fish"))
-        {
-            score += fishValue;
-        } else if(colName.Contains("meat"))
-        {
-            score += meatValue;
-        } else if(colName.Contains("sushi"))
-        {
-            score += sushiValue;
-        }
+        if (collision.CompareTag("fish")) score += fishValue;
+        else if (collision.CompareTag("meat")) score += meatValue;
+        else if (collision.CompareTag("sushi")) score += sushiValue;
         UpdateScore();
     }
 
     void UpdateScore()
     {
-        scoreText.text = "Score:\n" + score;
+        scoreText.text = "Score\n" + score;
     }
 }
