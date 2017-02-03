@@ -6,17 +6,17 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     public Camera cam;
-    public GameObject fish;
-    public GameObject meat;
-    public GameObject sushi;
+    public GameObject[] foods;
     public Text timer;
     public GameObject gameOverText;
     public GameObject restartButton;
 
+    private int randomIndex;
     private int food;
     private float timeLeft;
     private float maxWidth;
     public int absSeconds, minutes, seconds;
+    public static bool isAlive;
 
     private void Start()
     {
@@ -24,11 +24,12 @@ public class GameController : MonoBehaviour {
         {
             cam = Camera.main;
         }
-        
+
+        isAlive = true;
         Vector3 upperCorner = new Vector3(Screen.width, Screen.height, 0.0f);
         Vector3 targetWidth = cam.ScreenToWorldPoint(upperCorner);
-        float fishWidth = fish.GetComponent<Renderer>().bounds.extents.x;
-        maxWidth = targetWidth.x - fishWidth;
+        float foodWidth = foods[0].GetComponent<Renderer>().bounds.extents.x;
+        maxWidth = targetWidth.x - foodWidth;
         StartCoroutine(Spawn());
     }
 
@@ -41,18 +42,18 @@ public class GameController : MonoBehaviour {
     {
 
         yield return new WaitForSeconds(1.0f);
-        while(timeLeft < 10)
+        while(isAlive)
         {
+            randomIndex = Random.Range(0, foods.Length);
+            GameObject food = foods[randomIndex];
+            
             Vector3 spawnPosition = new Vector3(
             Random.Range(-maxWidth, maxWidth),
             transform.position.y-4,
             0.0f);
             Quaternion spawnRotation = Quaternion.AngleAxis(180, spawnPosition);
-            
-            food = Random.Range(0, 171);
-            if(food >=0 && food <=75) Instantiate(fish, spawnPosition, spawnRotation);
-            else if(food > 75 && food <= 130) Instantiate(meat, spawnPosition, spawnRotation);
-            else Instantiate(sushi, spawnPosition, spawnRotation);
+            if(food.CompareTag("dog")) spawnRotation = Quaternion.AngleAxis(0, spawnPosition);
+            Instantiate(food, spawnPosition, spawnRotation);
             yield return new WaitForSeconds(Random.Range(1.0f, 1.5f));
         }
         yield return new WaitForSeconds(1.0f);

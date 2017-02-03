@@ -14,9 +14,9 @@ public class Explode : MonoBehaviour {
             GameObject clone = (GameObject)Instantiate(explosion, transform.position - offset, transform.rotation);
             collision.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 20.0f;
-            //Destroy(collision.gameObject, 0.5f);
             Destroy(gameObject,0.5f);
             Destroy(clone, 1.2f);
+            GameController.isAlive = false;
         }
     }
     
