@@ -48,9 +48,9 @@ public class GameController : MonoBehaviour {
             GameObject food = foods[randomIndex];
             
             Vector3 spawnPosition = new Vector3(
-            Random.Range(-maxWidth, maxWidth),
-            transform.position.y-4,
-            0.0f);
+                Random.Range(-maxWidth, maxWidth),
+                    transform.position.y-4,
+                    0.0f);
             Quaternion spawnRotation = Quaternion.AngleAxis(180, spawnPosition);
             if(food.CompareTag("dog")) spawnRotation = Quaternion.AngleAxis(0, spawnPosition);
             Instantiate(food, spawnPosition, spawnRotation);

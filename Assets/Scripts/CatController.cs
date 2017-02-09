@@ -8,10 +8,12 @@ public class CatController : MonoBehaviour {
     private Rigidbody2D rb2d;
     private float maxWidth;
     private bool facingRight;
+    private AudioSource meow;
 
 	// Use this for initialization
 	void Start () {
         facingRight = true;
+        meow = GetComponent<AudioSource>();
 		if(cam == null)
         {
             cam = Camera.main;
@@ -31,6 +33,11 @@ public class CatController : MonoBehaviour {
         targetPosition = new Vector3(targetWidth, targetPosition.y, targetPosition.z);
         rb2d.MovePosition(targetPosition);
         Flip(rawPosition.x);
+
+        if(Time.time % 10 == 0)
+        {
+            meow.Play();
+        }
 	}
 
     private void Flip(float horizontal)
