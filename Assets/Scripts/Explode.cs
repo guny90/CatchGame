@@ -8,12 +8,17 @@ public class Explode : MonoBehaviour {
 
     private AudioSource woof;
 
+
+    public static Vector3 originalPosition;
+    public static Quaternion originalRotation;
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
             woof = GetComponent<AudioSource>();
             woof.Play();
+            
 
             Vector3 offset = new Vector3(0.0f, 2.0f, 0.0f);
             GameObject clone = (GameObject)Instantiate(explosion, transform.position - offset, transform.rotation);

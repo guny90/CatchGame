@@ -9,10 +9,9 @@ public class Score : MonoBehaviour {
     public int fishValue, meatValue, sushiValue;
 
     private int score;
-
-	// Use this for initialization
+    
 	void Start () {
-        score = 0;
+        score = GameController.score;
         UpdateScore();
 	}
 
@@ -21,11 +20,17 @@ public class Score : MonoBehaviour {
         if (collision.CompareTag("fish")) score += fishValue;
         else if (collision.CompareTag("meat")) score += meatValue;
         else if (collision.CompareTag("sushi")) score += sushiValue;
+
+        transform.position = new Vector3(transform.position.x, -3.14f, transform.position.z);
+        transform.rotation = Quaternion.identity;
+        //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
         UpdateScore();
     }
 
     void UpdateScore()
     {
+        GameController.score = score;
         scoreText.text = "Score\n" + score;
     }
 }
