@@ -22,9 +22,6 @@ public class Score : MonoBehaviour {
         else if (collision.CompareTag("sushi")) score += sushiValue;
 
         transform.position = new Vector3(transform.position.x, -3.14f, transform.position.z);
-        transform.rotation = Quaternion.identity;
-        //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-
         UpdateScore();
     }
 

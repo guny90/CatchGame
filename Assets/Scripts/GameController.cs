@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
@@ -13,16 +12,15 @@ public class GameController : MonoBehaviour {
     public GameObject restartButton;
     public GameObject continueButton;
     public static int score = 0;
+    public int absSeconds, minutes, seconds;
+    public static bool isAlive;
+    public static bool isRewarded;
+    public bool spawnIsRunning;
 
     private int randomIndex;
     private int food;
     private float timeLeft;
     private float maxWidth;
-    public int absSeconds, minutes, seconds;
-    public static bool isAlive;
-    public static bool isRewarded;
-
-    public bool spawnIsRunning;
 
     private void Start()
     {
@@ -65,20 +63,21 @@ public class GameController : MonoBehaviour {
                     transform.position.y-4,
                     0.0f);
             Quaternion spawnRotation = Quaternion.AngleAxis(180, spawnPosition);
-            if(food.CompareTag("dog")) spawnRotation = Quaternion.AngleAxis(0, spawnPosition);
+            if(food.CompareTag("dog"))
+                spawnRotation = Quaternion.AngleAxis(0, spawnPosition);
             Instantiate(food, spawnPosition, spawnRotation);
             yield return new WaitForSeconds(Random.Range(1.0f, 1.5f));
-            //if (!isAlive) break;
         }
         yield return new WaitForSeconds(1.0f);
         spawnIsRunning = false;
         gameOverText.SetActive(true);
         yield return new WaitForSeconds(1.0f);
 
-        ShowRewardedAd();
-        if (isRewarded)
+        if(Random.Range(0,2) == 1)
         {
-            continueButton.SetActive(true);
+            ShowRewardedAd();
+            if (isRewarded) continueButton.SetActive(true);
+            else restartButton.SetActive(true);
         } else
         {
             restartButton.SetActive(true);
@@ -131,7 +130,7 @@ public class GameController : MonoBehaviour {
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
-                isRewarded = true;
+                isRewarded = false;
                 break;
         }
     }

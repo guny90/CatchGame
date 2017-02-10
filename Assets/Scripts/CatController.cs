@@ -30,8 +30,6 @@ public class CatController : MonoBehaviour {
         if(GameController.isAlive)
         {
             transform.position = new Vector3(transform.position.x, -3.14f, transform.position.z);
-            //transform.rotation = Quaternion.AngleAxis(0, transform.position);
-            transform.Rotate(0, 0, 0);
         }
         Vector3 rawPosition = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector3 targetPosition = new Vector3(rawPosition.x, transform.position.y, 0.0f);
