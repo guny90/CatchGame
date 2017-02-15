@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
     public Text timer;
     public GameObject gameOverText;
     public GameObject restartButton;
-    public GameObject continueButton;
+    public GameObject continueWithAdButton;
     public static int score = 0;
     public int absSeconds, minutes, seconds;
     public static bool isAlive;
@@ -66,21 +66,17 @@ public class GameController : MonoBehaviour {
             if(food.CompareTag("dog"))
                 spawnRotation = Quaternion.AngleAxis(0, spawnPosition);
             Instantiate(food, spawnPosition, spawnRotation);
-            yield return new WaitForSeconds(Random.Range(1.0f, 1.5f));
+            yield return new WaitForSeconds(Random.Range(0.6f, 1.0f));
         }
         yield return new WaitForSeconds(1.0f);
         spawnIsRunning = false;
         gameOverText.SetActive(true);
         yield return new WaitForSeconds(1.0f);
 
-        if(Random.Range(0,2) == 1)
+        restartButton.SetActive(true);
+        if(Advertisement.IsReady("rewardedVideo"))
         {
-            ShowRewardedAd();
-            if (isRewarded) continueButton.SetActive(true);
-            else restartButton.SetActive(true);
-        } else
-        {
-            restartButton.SetActive(true);
+            continueWithAdButton.SetActive(true);
         }
         
     }
@@ -107,31 +103,5 @@ public class GameController : MonoBehaviour {
 
     }
 
-    public void ShowRewardedAd()
-    {
-        if (Advertisement.IsReady("rewardedVideo"))
-        {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("rewardedVideo", options);
-        }
-    }
-
-    private void HandleShowResult(ShowResult result)
-    {
-        switch (result)
-        {
-            case ShowResult.Finished:
-                isRewarded = true;
-                Debug.Log("The ad was successfully shown." + isRewarded);
-                break;
-            case ShowResult.Skipped:
-                isRewarded = false;
-                Debug.Log("The ad was skipped before reaching the end."+isRewarded);
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
-                isRewarded = false;
-                break;
-        }
-    }
+    
 }

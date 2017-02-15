@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundController : MonoBehaviour {
-    public new AudioSource audio;
+    public AudioSource meow, woof;
 
 	// Use this for initialization
 	void Start () {
-        audio = GetComponent<AudioSource>();
+        //meow = GetComponent<AudioSource>();
+         
 	}
 	
 	public void SoundOnOff()
     {
-        if(audio.mute)
+        if(meow.mute)
         {
-            audio.mute = false;
+            meow.mute = false;
+            woof.mute = false;
         } else
         {
-            audio.mute = true;
+            meow.mute = true;
+            woof.mute = true;
         }
     }
 }

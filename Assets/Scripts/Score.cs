@@ -20,6 +20,7 @@ public class Score : MonoBehaviour {
         if (collision.CompareTag("fish")) score += fishValue;
         else if (collision.CompareTag("meat")) score += meatValue;
         else if (collision.CompareTag("sushi")) score += sushiValue;
+        
 
         transform.position = new Vector3(transform.position.x, -3.14f, transform.position.z);
         UpdateScore();
@@ -29,5 +30,6 @@ public class Score : MonoBehaviour {
     {
         GameController.score = score;
         scoreText.text = "Score\n" + score;
+        scoreText.GetComponent<Animation>().CrossFade("score");
     }
 }
